@@ -27,13 +27,30 @@
         android:textAllCaps="true"
         />
 
-    <TextView
-        android:id="@+id/new_date_text_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date Published: Feb 19th, 2018"
-        android:textSize="12sp"
-        android:textStyle="italic"/>
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/new_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Published: Feb 19th, 2018"
+            android:textSize="12sp"
+            android:textStyle="italic"/>
+        <TextView
+            android:id="@+id/new_source_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BLOOMBERG"
+            android:layout_alignParentRight="true"
+            android:paddingRight="8dp"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/new_description_text_view"

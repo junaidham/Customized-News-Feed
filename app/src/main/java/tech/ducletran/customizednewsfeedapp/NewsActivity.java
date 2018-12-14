@@ -25,8 +25,16 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
-    private String WIRED_API =
-            "https://newsapi.org/v2/everything?sources=wired&apiKey=a99368fd8b7a4d028fc9aa9664cec212";
+    // List of Tech API Website
+    private String techAPIList[] = new String[] {
+            "https://newsapi.org/v2/top-headlines?sources=wired&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=5",
+            "https://newsapi.org/v2/top-headlines?sources=hacker-news&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=5",
+            "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=5",
+            "https://newsapi.org/v2/top-headlines?sources=techradar&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=5",
+            "https://newsapi.org/v2/top-headlines?sources=the-verge&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=5"
+    };
+
+    // Private attribute of the class
     private String LOG_TAG = "NewsActivity";
     private NewsAdapter adapter;
     private ArrayList<New> articleList;
@@ -83,7 +91,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<ArrayList<New>> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new NewsAsyncTaskLoader(this,WIRED_API);
+        return new NewsAsyncTaskLoader(this,techAPIList);
     }
 
     @Override
@@ -103,20 +111,20 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private static class NewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
-        private String url;
+        private String[] urls;
 
-        public NewsAsyncTaskLoader(Context context, String url) {
+        public NewsAsyncTaskLoader(Context context, String[] urls) {
             super(context);
-            this.url = url;
+            this.urls = urls;
         }
 
         @Nullable
         @Override
         public ArrayList<New> loadInBackground() {
-            if (url == null) {
+            if (urls == null || urls.length <1) {
                 return null;
             }
-            return QueryUtils.fetchNewsData(url);
+            return QueryUtils.fetchNewsData(urls);
 
         }
 

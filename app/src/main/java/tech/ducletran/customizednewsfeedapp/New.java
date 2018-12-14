@@ -8,9 +8,10 @@ public class New {
     private String description;
     private String writer;
     private String content;
+    private String source;
 
     public New(String imageURL,String title,String articleURL,String timePublished,String description,
-               String writer, String content) {
+               String writer, String content,String source) {
         this.articleURL = articleURL;
         this.title = title;
         this.timePublished = timePublished;
@@ -18,6 +19,7 @@ public class New {
         this.writer = writer;
         this.content = content;
         this.imageURL = imageURL;
+        this.source = source;
     }
 
     /*
@@ -30,4 +32,5 @@ public class New {
     public String getDescription() {return this.description;}
     public String getWriter() {return this.writer;}
     public String getContent() {return this.content;}
+    public String getSource() {return this.source;}
 }
