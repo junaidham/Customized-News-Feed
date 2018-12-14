@@ -35,22 +35,22 @@ public class TechNewsFracment extends Fragment implements LoaderManager.LoaderCa
     private RelativeLayout loadingLayout;
     private NewsAdapter adapter;
 
-    public TechNewsFracment() {
-
-    }
+    public TechNewsFracment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_news,container,false);
 
+        // Setting internet connection
         ConnectivityManager cm =
                 (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
 
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
+        // Setting view
+        final ListView listView = (ListView) rootView.findViewById(R.id.list);
         emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
         listView.setEmptyView(emptyView);
         loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
@@ -85,12 +85,12 @@ public class TechNewsFracment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<ArrayList<New>> onCreateLoader(int id, Bundle args) {
-        return new NewsAsyncTaskLoader(getActivity(),techAPIList);
+        return new TechNewsAsyncTaskLoader(getActivity(),techAPIList);
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<New>> loader, ArrayList<New> data) {
-        emptyView.setText("There are no news");
+        emptyView.setText("There are no news.");
 
         if(adapter != null) {
             adapter.clear();
@@ -104,10 +104,10 @@ public class TechNewsFracment extends Fragment implements LoaderManager.LoaderCa
         adapter.clear();
     }
 
-    private static class NewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
+    private static class TechNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
         private String[] urls;
 
-        public NewsAsyncTaskLoader(Context context, String[] urls) {
+        public TechNewsAsyncTaskLoader(Context context, String[] urls) {
             super(context);
             this.urls = urls;
         }

@@ -10,6 +10,6 @@ public class TechNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_news);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new TechNewsFracment());
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new TechNewsFracment()).commit();
     }
 }

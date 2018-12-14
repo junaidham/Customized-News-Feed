@@ -18,6 +18,7 @@ public class NewsActivity extends AppCompatActivity {
         CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(1);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
