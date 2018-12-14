@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/10. Customized Newfeed.iml" filepath="$PROJECT_DIR$/10. Customized Newfeed.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/picasso-2.71828/picasso-2.71828.iml" filepath="$PROJECT_DIR$/picasso-2.71828/picasso-2.71828.iml" />
     </modules>
   </component>
 </project>

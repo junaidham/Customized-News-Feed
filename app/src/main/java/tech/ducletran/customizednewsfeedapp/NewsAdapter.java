@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class NewsAdapter extends ArrayAdapter<New> {
@@ -29,12 +31,14 @@ public class NewsAdapter extends ArrayAdapter<New> {
         }
         New newArticle = getItem(position);
 
-//        ImageView newImageView = (ImageView) listViewItem.findViewById(R.id.new_image_view);
+        ImageView newImageView = (ImageView) listViewItem.findViewById(R.id.new_image_view);
         TextView newTitleTextView = (TextView) listViewItem.findViewById(R.id.new_title_text_view);
         TextView newDateTextView = (TextView) listViewItem.findViewById(R.id.new_date_text_view);
         TextView newDescriptionTextView = (TextView) listViewItem.findViewById(R.id.new_description_text_view);
 
 //        newImageView.setImageURI(newArticle.getImageURL());
+//        Picasso.get().load(newArticle.getImageURL()).into(newImageView);
+        Picasso.get().load(newArticle.getImageURL()).into(newImageView);
         newTitleTextView.setText(newArticle.getTitle());
         newDateTextView.setText("Date published: " + newArticle.getTimePublished());
         newDescriptionTextView.setText(newArticle.getDescription());

@@ -17,6 +17,7 @@ public class New {
         this.description = description;
         this.writer = writer;
         this.content = content;
+        this.imageURL = imageURL;
     }
 
     /*

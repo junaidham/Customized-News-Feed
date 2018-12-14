@@ -1,8 +1,10 @@
 package tech.ducletran.customizednewsfeedapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -33,23 +36,41 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        // Getting basic layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        ListView listView = (ListView) findViewById(R.id.list);
-        emptyView = (TextView) findViewById(R.id.empty_text_view);
-        listView.setEmptyView(emptyView);
-        loadingLayout = (RelativeLayout) findViewById(R.id.loading_layout);
-
+        // Getting connection
         ConnectivityManager cm =
                 (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        adapter = new NewsAdapter(this,new ArrayList<New>());
 
+        // Getting items from view
+        ListView listView = (ListView) findViewById(R.id.list);
+        emptyView = (TextView) findViewById(R.id.empty_text_view);
+        listView.setEmptyView(emptyView);
+        loadingLayout = (RelativeLayout) findViewById(R.id.loading_layout);
+
+        // Setting the adapter
+        adapter = new NewsAdapter(this,new ArrayList<New>());
         listView.setAdapter(adapter);
+
+        // Callback method when click on items
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                New news = adapter.getItem(position);
+                Uri webpage = Uri.parse(news.getArticleURL());
+                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        // Setting the LoaderManager
         LoaderManager loaderManager = getLoaderManager();
         if (isConnected) {
             loaderManager.initLoader(1,null,this).forceLoad();
