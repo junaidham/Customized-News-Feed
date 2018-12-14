@@ -29,7 +29,7 @@ public class NewsAdapter extends ArrayAdapter<New> {
         View listViewItem = convertView;
 
         if (listViewItem == null) {
-            listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_news,parent,false);
+            listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_items,parent,false);
         }
         New newArticle = getItem(position);
 
@@ -44,6 +44,7 @@ public class NewsAdapter extends ArrayAdapter<New> {
         newDateTextView.setText("Date published: " + newArticle.getTimePublished());
         newDescriptionTextView.setText(newArticle.getDescription());
         newSourceTextView.setText(newArticle.getSource());
+
         return listViewItem;
     }
 }

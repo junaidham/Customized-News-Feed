@@ -1,4 +1,9 @@
 package tech.ducletran.customizednewsfeedapp;
 
-public class ArtNewsFracment {
+import android.support.v4.app.Fragment;
+
+public class ArtNewsFracment extends Fragment {
+    public ArtNewsFracment() {
+
+    }
 }
