@@ -1,13 +1,107 @@
 package tech.ducletran.customizednewsfeedapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
+import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class NewsActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
+    private String WIRED_API =
+            "https://newsapi.org/v2/everything?sources=wired&apiKey=a99368fd8b7a4d028fc9aa9664cec212";
+    private String LOG_TAG = "NewsActivity";
+    private NewsAdapter adapter;
+    private ArrayList<New> articleList;
+    private TextView emptyView;
+    private boolean isConnected;
+    private RelativeLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+
+        ListView listView = (ListView) findViewById(R.id.list);
+        emptyView = (TextView) findViewById(R.id.empty_text_view);
+        listView.setEmptyView(emptyView);
+        loadingLayout = (RelativeLayout) findViewById(R.id.loading_layout);
+
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        adapter = new NewsAdapter(this,new ArrayList<New>());
+
+        listView.setAdapter(adapter);
+        LoaderManager loaderManager = getLoaderManager();
+        if (isConnected) {
+            loaderManager.initLoader(1,null,this).forceLoad();
+        } else {
+            loadingLayout.setVisibility(View.GONE);
+            emptyView.setText("No Internet Connection");
+        }
+    }
+
+    @NonNull
+    @Override
+    public Loader<ArrayList<New>> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return new NewsAsyncTaskLoader(this,WIRED_API);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<ArrayList<New>> loader, ArrayList<New> news) {
+        emptyView.setText("There are no news.");
+
+        if (adapter != null) {
+            adapter.clear();
+        }
+        adapter.addAll(news);
+        loadingLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<ArrayList<New>> loader) {
+        adapter.clear();
+    }
+
+    private static class NewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
+        private String url;
+
+        public NewsAsyncTaskLoader(Context context, String url) {
+            super(context);
+            this.url = url;
+        }
+
+        @Nullable
+        @Override
+        public ArrayList<New> loadInBackground() {
+            if (url == null) {
+                return null;
+            }
+            return QueryUtils.fetchNewsData(url);
+
+        }
+
+        @Override
+        protected void onStartLoading() {
+            forceLoad();
+        }
     }
 }
