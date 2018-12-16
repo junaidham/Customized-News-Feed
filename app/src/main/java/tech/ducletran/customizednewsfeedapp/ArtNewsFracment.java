@@ -16,28 +16,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
     // Art link API
-    String artAPIList[] = new String[] {"https://newsapi.org/v2/top-headlines?sources=four-four-two&apiKey=a99368fd8b7a4d028fc9aa9664cec212"};
+    String artAPIList[] = new String[] {
+                    "https://api.artsy.net/api/artworks?sample=1",
+                    "https://newsapi.org/v2/top-headlines?sources=four-four-two&apiKey=a99368fd8b7a4d028fc9aa9664cec212"};
 
     // Class attribute
     private boolean isConnected;
     private TextView emptyView;
     private RelativeLayout loadingLayout;
     private NewsAdapter adapter;
+    private TextView dailyArtworkTitleTextView;
+    private ImageView dailyArtworkImageView;
+    private TextView dailyArtworkAuthorTextView;
+    private TextView dailyArtworkTimeTextView;
 
     public ArtNewsFracment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.list_news,container,false);
+        View rootView = inflater.inflate(R.layout.art_list_news,container,false);
 
         // Setting internet connection
         ConnectivityManager cm =
@@ -51,6 +60,10 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
         emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
         listView.setEmptyView(emptyView);
         loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
+        dailyArtworkTitleTextView = (TextView) rootView.findViewById(R.id.daily_art_name_text_view);
+        dailyArtworkImageView = (ImageView) rootView.findViewById(R.id.daily_art_thumbnail_image_view);
+        dailyArtworkAuthorTextView = (TextView) rootView.findViewById(R.id.daily_art_artist_text_view);
+        dailyArtworkTimeTextView = (TextView) rootView.findViewById(R.id.daily_art_date_text_view);
 
         // Setting adapter
         adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
@@ -92,7 +105,18 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
         if (adapter != null) {
             adapter.clear();
         }
-        adapter.addAll(data);
+        New dailyArtwork = data.get(0);
+        if (dailyArtwork != null) {
+            dailyArtworkTitleTextView.setText(dailyArtwork.getTitle());
+            if(dailyArtwork.getTimePublished() != null || !dailyArtwork.getTimePublished().equals("")) {
+                dailyArtworkTimeTextView.setText("Time: "+dailyArtwork.getTimePublished());
+            }
+            dailyArtworkAuthorTextView.setText("Artist: "+dailyArtwork.getWriter());
+            Picasso.get().load(dailyArtwork.getImageURL()).into(dailyArtworkImageView);
+        }
+
+
+        adapter.addAll(data.subList(1,data.size()));
         loadingLayout.setVisibility(View.GONE);
     }
 
@@ -116,7 +140,7 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
             if (urls == null || urls.length <1) {
                 return null;
             }
-            return QueryUtils.fetchNewsData(urls);
+            return QueryUtils.fetchArtNewsData(urls);
 
         }
 

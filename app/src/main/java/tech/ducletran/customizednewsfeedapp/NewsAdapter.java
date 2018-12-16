@@ -1,7 +1,6 @@
 package tech.ducletran.customizednewsfeedapp;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,10 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
 
 public class NewsAdapter extends ArrayAdapter<New> {
 
@@ -39,11 +36,13 @@ public class NewsAdapter extends ArrayAdapter<New> {
         TextView newDescriptionTextView = (TextView) listViewItem.findViewById(R.id.new_description_text_view);
         TextView newSourceTextView = (TextView) listViewItem.findViewById(R.id.new_source_text_view);
 
-        Picasso.get().load(newArticle.getImageURL()).into(newImageView);
+        Picasso.get().load(newArticle.getImageURL()).resize(360,150).into(newImageView);
         newTitleTextView.setText(newArticle.getTitle());
-        newDateTextView.setText("Date published: " + newArticle.getTimePublished());
-        newDescriptionTextView.setText(newArticle.getDescription());
+        if (!newArticle.getDescription().equals("null")) {
+            newDescriptionTextView.setText(newArticle.getDescription());
+        }
         newSourceTextView.setText(newArticle.getSource());
+        newDateTextView.setText("Date published: " + newArticle.getTimePublished());
 
         return listViewItem;
     }

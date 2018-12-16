@@ -8,9 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,26 +41,7 @@ public final class QueryUtils {
             }
         }
 
-
-//        newsList = extractNews(HARDCODED_JSON_STRING);
         return newsList;
-    }
-
-    private static String readDataFromInputStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        } else {
-            return null;
-        }
-
-        return output.toString();
     }
 
     private static ArrayList<New> extractNews(String newsJSON) {
@@ -106,14 +89,14 @@ public final class QueryUtils {
     }
 
     private static String getNewsData(String urlLink) {
-        URL urlNewsquakeObject = null;
+        URL urlNewsObject;
         String newsStream = "";
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
 
         try {
-            urlNewsquakeObject = new URL(urlLink);
-            if (urlNewsquakeObject == null) {
+            urlNewsObject = new URL(urlLink);
+            if (urlNewsObject == null) {
                 return newsStream;
             }
         } catch (MalformedURLException e) {
@@ -122,7 +105,7 @@ public final class QueryUtils {
         }
 
         try {
-            urlConnection = (HttpURLConnection) urlNewsquakeObject.openConnection();
+            urlConnection = (HttpURLConnection) urlNewsObject.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setReadTimeout(10000);
             urlConnection.setConnectTimeout(15000);
@@ -130,6 +113,9 @@ public final class QueryUtils {
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 newsStream = readFromStream(inputStream);
+            } else {
+                Log.e("QueryUtils - GetNewsD..","Response code is: "+urlConnection.getResponseCode());
+
             }
 
 
@@ -144,6 +130,7 @@ public final class QueryUtils {
                     e.printStackTrace();
                 }
             }
+
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
@@ -165,6 +152,182 @@ public final class QueryUtils {
             }
         }
         return output.toString();
+    }
+
+
+    /*
+     * Getting artwork SECTION
+     */
+    // Fetching data
+    public static ArrayList<New> fetchArtNewsData(String[] urls) {
+        ArrayList<New> newsArtList = new ArrayList<New>() {};
+        String token = getTokenArtwork();
+        New dailyArtNew = getDailyArtwork(urls[0]);
+        newsArtList.add(dailyArtNew);
+        String jsonResponse = null;
+        for (int i =1;i < urls.length;i++) {
+            String url = urls[i];
+            jsonResponse = getNewsData(url);
+            ArrayList<New> newsExtracted = extractNews(jsonResponse);
+            if (newsExtracted != null) {
+                newsArtList.addAll(newsExtracted);
+            }
+        }
+
+        return newsArtList;
+    }
+
+    // Get the Art News data
+    private static String getArtNewsData(String urlLink) {
+        URL urlNewsObject = null;
+        String newsStream = "";
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+
+        try {
+            urlNewsObject = new URL(urlLink);
+            if (urlNewsObject == null) {
+                return newsStream;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return newsStream;
+        }
+
+        try {
+            String token = getTokenArtwork();
+            urlConnection = (HttpURLConnection) urlNewsObject.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("X-Xapp-Token",token);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.connect();
+
+            if (urlConnection.getResponseCode() == 200) {
+                inputStream = urlConnection.getInputStream();
+                newsStream = readFromStream(inputStream);
+            } else {
+                Log.e("QueryUtils - getArt...","Response code is: "+urlConnection.getResponseCode());
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+
+        Log.d("QueryUtils - getArt...",newsStream);
+        return newsStream;
+    }
+
+    // Get the artwork New object from url link
+    private static New getDailyArtwork(String url) {
+        String jsonResponse = getArtNewsData(url);
+
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+
+        }
+        New dailyArtwork = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonResponse);
+            JSONObject urls = jsonObject.getJSONObject("_links");
+            String date = jsonObject.getString("date");
+            String title = jsonObject.getString("title");
+            String image_version = jsonObject.getJSONArray("image_versions").getString(0);
+            String urlImage = urls.getJSONObject("image").getString("href");
+            String urlThumbnail = urls.getJSONObject("thumbnail").getString("href");
+
+            String jsonArtistResponse = getArtNewsData(urls.getJSONObject("artists").getString("href"));
+
+            if (TextUtils.isEmpty(jsonArtistResponse)) {
+                return null;
+            }
+            JSONObject jsonArtistObject = new JSONObject(jsonArtistResponse);
+            String artist = jsonArtistObject.getJSONObject("_embedded").getJSONArray("artists").getJSONObject(0).getString("name");
+
+            dailyArtwork = new New(urlThumbnail,title,urlImage,date,null,artist,null,null);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return dailyArtwork;
+    }
+
+
+    // Getting token
+    private static String getTokenArtwork() {
+        StringBuilder tokenReader = new StringBuilder();
+        URL urlLink = null;
+        try {
+            urlLink = new URL("https://api.artsy.net/api/tokens/xapp_token");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // Setting up JSONObject for toen
+        JSONObject tokenBody = new JSONObject();
+        try {
+            tokenBody.put("client_id","2290fd27c2737d8b22f9");
+            tokenBody.put("client_secret","d2cb44ef5d0e85d8829b4f9f10ed30e7");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // Setting connection for POST request
+        try {
+            HttpURLConnection con = (HttpURLConnection) urlLink.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type","application/json");
+
+            // Post the request
+            DataOutputStream writer = new DataOutputStream(con.getOutputStream());
+            writer.writeBytes(tokenBody.toString());
+            writer.flush();
+            writer.close();
+
+            if (con.getResponseCode() == 201) {
+                Log.d("TOKEN","Token: HEY");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(),Charset.forName("UTF-8")));
+                String line = reader.readLine();
+                while (line != null) {
+                    tokenReader.append(line);
+                    line = reader.readLine();
+                }
+            } else {
+                Log.e("ARTWORK TOKEN","Response Code: " + con.getResponseCode());
+            }
+
+            // Get the response token
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String token = null;
+        try {
+            token = new JSONObject(tokenReader.toString()).getString("token");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return token;
     }
 
 }
