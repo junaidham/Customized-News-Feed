@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,28 +26,26 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
+public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<New> {
     // Art link API
-    String artAPIList[] = new String[] {
-                    "https://api.artsy.net/api/artworks?sample=1",
-                    "https://newsapi.org/v2/top-headlines?sources=four-four-two&apiKey=a99368fd8b7a4d028fc9aa9664cec212"};
+    String artAPIList = "https://api.artsy.net/api/artworks?sample=1";
 
     // Class attribute
     private boolean isConnected;
-    private TextView emptyView;
     private RelativeLayout loadingLayout;
-    private NewsAdapter adapter;
     private TextView dailyArtworkTitleTextView;
     private ImageView dailyArtworkImageView;
     private TextView dailyArtworkAuthorTextView;
     private TextView dailyArtworkTimeTextView;
+    public static final String EXTRA_MESSAGE = "tech.ducletran.customizednewsfeedapp.MESSAGE";
+
 
     public ArtNewsFracment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.art_list_news,container,false);
+        final View rootView = inflater.inflate(R.layout.art_list_news,container,false);
 
         // Setting internet connection
         ConnectivityManager cm =
@@ -56,30 +55,13 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
                 activeNetwork.isConnectedOrConnecting();
 
         // Setting view
-        final ListView listView = (ListView) rootView.findViewById(R.id.list);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
-        listView.setEmptyView(emptyView);
-        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
-        dailyArtworkTitleTextView = (TextView) rootView.findViewById(R.id.daily_art_name_text_view);
-        dailyArtworkImageView = (ImageView) rootView.findViewById(R.id.daily_art_thumbnail_image_view);
-        dailyArtworkAuthorTextView = (TextView) rootView.findViewById(R.id.daily_art_artist_text_view);
-        dailyArtworkTimeTextView = (TextView) rootView.findViewById(R.id.daily_art_date_text_view);
+        loadingLayout =  rootView.findViewById(R.id.loading_layout);
+        dailyArtworkTitleTextView =  rootView.findViewById(R.id.daily_art_name_text_view);
+        dailyArtworkImageView =  rootView.findViewById(R.id.daily_art_thumbnail_image_view);
+        dailyArtworkAuthorTextView = rootView.findViewById(R.id.daily_art_artist_text_view);
+        dailyArtworkTimeTextView = rootView.findViewById(R.id.daily_art_date_text_view);
 
-        // Setting adapter
-        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
-        listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                New news = adapter.getItem(position);
-                Uri webpage = Uri.parse(news.getArticleURL());
-                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
 
         // Setting the LoaderManager
         LoaderManager loaderManager = getActivity().getLoaderManager();
@@ -87,60 +69,65 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
             loaderManager.initLoader(0,null,this).forceLoad();
         } else {
             loadingLayout.setVisibility(View.GONE);
-            emptyView.setText("No Internet Connection");
         }
 
         return rootView;
     }
 
     @Override
-    public Loader<ArrayList<New>> onCreateLoader(int id, Bundle args) {
+    public Loader<New> onCreateLoader(int id, Bundle args) {
         return new ArtNewsAsyncTaskLoader(getActivity(),artAPIList);
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<New>> loader, ArrayList<New> data) {
-        emptyView.setText("There are no news.");
-
-        if (adapter != null) {
-            adapter.clear();
-        }
-        New dailyArtwork = data.get(0);
+    public void onLoadFinished(Loader<New> loader, New data) {
+        final New dailyArtwork = data;
         if (dailyArtwork != null) {
             dailyArtworkTitleTextView.setText(dailyArtwork.getTitle());
             if(dailyArtwork.getTimePublished() != null || !dailyArtwork.getTimePublished().equals("")) {
                 dailyArtworkTimeTextView.setText("Time: "+dailyArtwork.getTimePublished());
             }
             dailyArtworkAuthorTextView.setText("Artist: "+dailyArtwork.getWriter());
-            Picasso.get().load(dailyArtwork.getImageURL()).into(dailyArtworkImageView);
+            Log.e("HELLO",dailyArtwork.getArticleURL());
+            Picasso.get().load(dailyArtwork.getArticleURL()).resize(360,640).into(dailyArtworkImageView);
+
+            dailyArtworkImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),DisplayImageActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE,dailyArtwork.getArticleURL());
+                    startActivity(intent);
+                }
+            });
         }
 
 
-        adapter.addAll(data.subList(1,data.size()));
+
+
         loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<New>> loader) {
-        adapter.clear();
+    public void onLoaderReset(Loader<New> loader) {
 
     }
 
-    private static class ArtNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
-        private String[] urls;
 
-        public ArtNewsAsyncTaskLoader(Context context, String[] urls) {
+    private static class ArtNewsAsyncTaskLoader extends AsyncTaskLoader<New> {
+        private String url;
+
+        public ArtNewsAsyncTaskLoader(Context context, String url) {
             super(context);
-            this.urls = urls;
+            this.url = url;
         }
 
         @Nullable
         @Override
-        public ArrayList<New> loadInBackground() {
-            if (urls == null || urls.length <1) {
+        public New loadInBackground() {
+            if (url == null ) {
                 return null;
             }
-            return QueryUtils.fetchArtNewsData(urls);
+            return QueryUtils.fetchArtNewsData(url);
 
         }
 

@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        >
         <ProgressBar
             android:id="@+id/loading_bar"
             android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
     <LinearLayout
         android:id="@+id/daily_art"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:elevation="4dp"
         android:background="@drawable/my_shadow">
@@ -43,11 +44,13 @@
         <ImageView
             android:id="@+id/daily_art_thumbnail_image_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"/>
 
         <TextView
+            android:id="@+id/daily_art_artist_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Daily Artwork"
@@ -55,63 +58,32 @@
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             />
         <TextView
             android:id="@+id/daily_art_name_text_view"
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Something useful with this kind of header"
+            android:text="Unknown artwork"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:layout_marginLeft="16dp"
             />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            >
-            <TextView
-                android:id="@+id/daily_art_artist_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Artist - "/>
+
             <TextView
                 android:id="@+id/daily_art_date_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time: 1970 - 1990"
-                android:layout_alignParentEnd="true"/>
-        </RelativeLayout>
+                android:text="Time: Unknown"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="16dp"/>
 
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/daily_art"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"/>
-    <ListView
-        android:layout_marginTop="16dp"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/list"
-        android:dividerHeight="16dp"
-        android:divider="@color/transparent"
-        android:layout_below="@+id/daily_art"
-        android:padding="16dp"
-        />
-
-    <TextView
-        android:id="@+id/empty_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"/>
 
 </RelativeLayout>

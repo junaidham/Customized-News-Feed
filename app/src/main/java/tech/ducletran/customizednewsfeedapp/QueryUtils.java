@@ -159,22 +159,10 @@ public final class QueryUtils {
      * Getting artwork SECTION
      */
     // Fetching data
-    public static ArrayList<New> fetchArtNewsData(String[] urls) {
-        ArrayList<New> newsArtList = new ArrayList<New>() {};
-        String token = getTokenArtwork();
-        New dailyArtNew = getDailyArtwork(urls[0]);
-        newsArtList.add(dailyArtNew);
-        String jsonResponse = null;
-        for (int i =1;i < urls.length;i++) {
-            String url = urls[i];
-            jsonResponse = getNewsData(url);
-            ArrayList<New> newsExtracted = extractNews(jsonResponse);
-            if (newsExtracted != null) {
-                newsArtList.addAll(newsExtracted);
-            }
-        }
+    public static New fetchArtNewsData(String url) {
+        New dailyArtNew = getDailyArtwork(url);
 
-        return newsArtList;
+        return dailyArtNew;
     }
 
     // Get the Art News data
@@ -241,7 +229,7 @@ public final class QueryUtils {
             return null;
 
         }
-        New dailyArtwork = null;
+        New dailyArtwork;
 
         try {
             JSONObject jsonObject = new JSONObject(jsonResponse);
@@ -249,7 +237,7 @@ public final class QueryUtils {
             String date = jsonObject.getString("date");
             String title = jsonObject.getString("title");
             String image_version = jsonObject.getJSONArray("image_versions").getString(0);
-            String urlImage = urls.getJSONObject("image").getString("href");
+            String urlImage = urls.getJSONObject("image").getString("href").replace("{image_version}",image_version);
             String urlThumbnail = urls.getJSONObject("thumbnail").getString("href");
 
             String jsonArtistResponse = getArtNewsData(urls.getJSONObject("artists").getString("href"));
@@ -260,7 +248,7 @@ public final class QueryUtils {
             JSONObject jsonArtistObject = new JSONObject(jsonArtistResponse);
             String artist = jsonArtistObject.getJSONObject("_embedded").getJSONArray("artists").getJSONObject(0).getString("name");
 
-            dailyArtwork = new New(urlThumbnail,title,urlImage,date,null,artist,null,null);
+            dailyArtwork = new New(urlThumbnail,title,urlImage,date,image_version,artist,null,null);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -326,7 +314,6 @@ public final class QueryUtils {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return token;
     }
 

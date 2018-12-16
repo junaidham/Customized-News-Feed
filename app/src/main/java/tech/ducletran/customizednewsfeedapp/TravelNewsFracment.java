@@ -26,6 +26,7 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
     // Travel Link API
     String travelAPILink[] = new String[]
             {"https://newsapi.org/v2/everything?q=bitcoin&from=2018-11-14&sortBy=publishedAt&apiKey=a99368fd8b7a4d028fc9aa9664cec212"};
+//    String travelAPILink[] = new String[] {};
 
     // Class attribute
     private boolean isConnected;
@@ -40,43 +41,43 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_news,container,false);
 
-        // Setting internet connection
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        // Setting view
-        final ListView listView = (ListView) rootView.findViewById(R.id.list);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
-        listView.setEmptyView(emptyView);
-        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
-
-        // Setting adapter
-        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                New news = adapter.getItem(position);
-                Uri webpage = Uri.parse(news.getArticleURL());
-                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
-
-        // Setting the LoaderManager
-        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
-        if (isConnected) {
-            loaderManager.initLoader(3,null,this).forceLoad();
-        } else {
-            loadingLayout.setVisibility(View.GONE);
-            emptyView.setText("No Internet Connection");
-        }
+//        // Setting internet connection
+//        ConnectivityManager cm =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        isConnected = activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
+//
+//        // Setting view
+//        final ListView listView = (ListView) rootView.findViewById(R.id.list);
+//        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
+//        listView.setEmptyView(emptyView);
+//        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
+//
+//        // Setting adapter
+//        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
+//        listView.setAdapter(adapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                New news = adapter.getItem(position);
+//                Uri webpage = Uri.parse(news.getArticleURL());
+//                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
+//                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//
+//        // Setting the LoaderManager
+//        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
+//        if (isConnected) {
+//            loaderManager.initLoader(3,null,this).forceLoad();
+//        } else {
+//            loadingLayout.setVisibility(View.GONE);
+//            emptyView.setText("No Internet Connection");
+//        }
 
         return rootView;
 
