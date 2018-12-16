@@ -6,27 +6,25 @@ import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 
-public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<New> {
+public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<New>{
     // Art link API
     String artAPIList = "https://api.artsy.net/api/artworks?sample=1";
 
@@ -38,6 +36,8 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
     private TextView dailyArtworkAuthorTextView;
     private TextView dailyArtworkTimeTextView;
     public static final String EXTRA_MESSAGE = "tech.ducletran.customizednewsfeedapp.MESSAGE";
+    private LoaderManager loaderManager;
+    private static int loadingImage = 0;
 
 
     public ArtNewsFracment() {}
@@ -64,9 +64,10 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
 
 
         // Setting the LoaderManager
-        LoaderManager loaderManager = getActivity().getLoaderManager();
+        loaderManager = getActivity().getLoaderManager();
         if (isConnected) {
             loaderManager.initLoader(0,null,this).forceLoad();
+
         } else {
             loadingLayout.setVisibility(View.GONE);
         }
@@ -81,35 +82,35 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(Loader<New> loader, New data) {
-        final New dailyArtwork = data;
-        if (dailyArtwork != null) {
-            dailyArtworkTitleTextView.setText(dailyArtwork.getTitle());
-            if(dailyArtwork.getTimePublished() != null || !dailyArtwork.getTimePublished().equals("")) {
-                dailyArtworkTimeTextView.setText("Time: "+dailyArtwork.getTimePublished());
-            }
-            dailyArtworkAuthorTextView.setText("Artist: "+dailyArtwork.getWriter());
-            Log.e("HELLO",dailyArtwork.getArticleURL());
-            Picasso.get().load(dailyArtwork.getArticleURL()).resize(360,640).into(dailyArtworkImageView);
-
-            dailyArtworkImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(),DisplayImageActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE,dailyArtwork.getArticleURL());
-                    startActivity(intent);
+        Log.d("dd","BIG ERROR: "+ data );
+        if (loadingImage == 0 & data != null) {
+            final New dailyArtwork = data;
+            if (dailyArtwork != null) {
+                dailyArtworkTitleTextView.setText(dailyArtwork.getTitle());
+                if(dailyArtwork.getTimePublished() != null || !dailyArtwork.getTimePublished().equals("")) {
+                    dailyArtworkTimeTextView.setText("Time: "+dailyArtwork.getTimePublished());
                 }
-            });
+                dailyArtworkAuthorTextView.setText("Artist: "+dailyArtwork.getWriter());
+                Picasso.get().load(dailyArtwork.getArticleURL()).resize(360,640).into(dailyArtworkImageView);
+
+                dailyArtworkImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(),DisplayImageActivity.class);
+                        intent.putExtra(EXTRA_MESSAGE,dailyArtwork.getArticleURL());
+                        startActivity(intent);
+                    }
+                });
+
+            }
+            loadingImage++;
         }
-
-
-
 
         loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaderReset(Loader<New> loader) {
-
     }
 
 
@@ -135,5 +136,7 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
         protected void onStartLoading() {
             forceLoad();
         }
+
+
     }
 }

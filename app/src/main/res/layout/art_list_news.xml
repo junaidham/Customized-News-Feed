@@ -33,6 +33,14 @@
             />
     </RelativeLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New artwork"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"/>
+
     <LinearLayout
         android:id="@+id/daily_art"
         android:layout_width="match_parent"
@@ -73,17 +81,19 @@
             />
 
 
-            <TextView
-                android:id="@+id/daily_art_date_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time: Unknown"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/daily_art_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time: Unknown"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"/>
 
 
     </LinearLayout>
+
 
 
 </RelativeLayout>
