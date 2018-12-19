@@ -187,8 +187,6 @@ public final class QueryUtils {
             urlConnection = (HttpURLConnection) urlNewsObject.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("X-Xapp-Token",token);
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
             urlConnection.connect();
 
             if (urlConnection.getResponseCode() == 200) {
@@ -238,7 +236,12 @@ public final class QueryUtils {
             String title = jsonObject.getString("title");
             String image_version = jsonObject.getJSONArray("image_versions").getString(0);
             String urlImage = urls.getJSONObject("image").getString("href").replace("{image_version}",image_version);
-            String urlThumbnail = urls.getJSONObject("thumbnail").getString("href");
+            String urlThumbnail;
+            if (urls.getJSONObject("thumbnail") != null) {
+                urlThumbnail = urls.getJSONObject("thumbnail").getString("href");
+            } else {
+                urlThumbnail = urlImage;
+            }
 
             String jsonArtistResponse = getArtNewsData(urls.getJSONObject("artists").getString("href"));
 
@@ -246,7 +249,11 @@ public final class QueryUtils {
                 return null;
             }
             JSONObject jsonArtistObject = new JSONObject(jsonArtistResponse);
-            String artist = jsonArtistObject.getJSONObject("_embedded").getJSONArray("artists").getJSONObject(0).getString("name");
+            JSONArray artistListArray = jsonArtistObject.getJSONObject("_embedded").getJSONArray("artists");
+            String artist = "Unknown";
+            if (!(artistListArray.length() == 0)) {
+                artist = jsonArtistObject.getJSONObject("_embedded").getJSONArray("artists").getJSONObject(0).getString("name");
+            }
 
             dailyArtwork = new New(urlThumbnail,title,urlImage,date,image_version,artist,null,null);
 
@@ -292,7 +299,6 @@ public final class QueryUtils {
             writer.close();
 
             if (con.getResponseCode() == 201) {
-                Log.d("TOKEN","Token: HEY");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(),Charset.forName("UTF-8")));
                 String line = reader.readLine();
                 while (line != null) {

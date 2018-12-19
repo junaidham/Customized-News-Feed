@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="BIG ERROR" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="CHECK LOADER" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -26,10 +26,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TechNewsFracment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TechNewsFracment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/DisplayImageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/DisplayImageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/art_list_news.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/art_list_news.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/display_image_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/display_image_view.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,7 +53,22 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="ArtNewsFracment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="98" column="36" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4530#4531#0" expanded="true" />
+                <element signature="e#4562#4563#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -87,6 +104,11 @@
       <find>LOG</find>
       <find>onLoad</find>
       <find>CREATING</find>
+      <find>ev</find>
+      <find>dailyArtworkImageView</find>
+      <find>BIG ERROR</find>
+      <find>fullImageView</find>
+      <find>visibility</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2595,25 +2617,25 @@
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/NewsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TravelNewsFracment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/OtherNewsFracment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/CategoryAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/display_image_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/DisplayImageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TechNewsFracment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/OnSwipeListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/display_image_view.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/DisplayImageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/art_list_news.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="916" />
-    <option name="y" value="22" />
-    <option name="width" value="978" />
-    <option name="height" value="1039" />
+    <option name="x" value="915" />
+    <option name="y" value="20" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -2623,6 +2645,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2656,9 +2681,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2666,7 +2688,7 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="B2NGAA8871120374" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/picasso-2.71828.aar" />
+    <property name="last_opened_file_path" value="E:/SELF_TAUGHT_LEARNING/54.Android_Data_Storage/Court-Counter" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2810,6 +2832,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32905984" />
@@ -2819,7 +2842,7 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50067115" side_tool="true" weight="0.32621083" />
       <window_info anchor="right" id="Preview" order="3" weight="0.2946309" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26923078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.37321937" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32905984" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32905984" />
       <window_info anchor="bottom" id="Logcat" order="7" weight="0.32905984" />
@@ -2828,6 +2851,7 @@
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1932886" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49932885" weight="0.32621083" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
@@ -2840,27 +2864,12 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3612#3986#0" expanded="true" />
-            <element signature="e#3985#3986#0" expanded="true" />
-            <element signature="e#4686#4687#0" expanded="true" />
-            <element signature="e#4721#4722#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -2910,13 +2919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3612#3986#0" expanded="true" />
-            <element signature="e#3985#3986#0" expanded="true" />
-            <element signature="e#4686#4687#0" expanded="true" />
-            <element signature="e#4721#4722#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2976,11 +2978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3130,11 +3127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="18" column="64" selection-start-line="18" selection-start-column="64" selection-end-line="18" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-            <element signature="e#586#587#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3149,9 +3141,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="78" column="11" selection-start-line="42" selection-start-column="10" selection-end-line="78" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3172,10 +3161,57 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-117">
-          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        <state relative-caret-position="153">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TechNewsFracment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="44" selection-start-line="44" selection-start-column="2" selection-end-line="80" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/OnSwipeTouchListener.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/CategoryAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="70" selection-start-line="8" selection-start-column="70" selection-end-line="8" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4469#4470#0" expanded="true" />
+            <element signature="e#4506#4507#0" expanded="true" />
+            <element signature="e#6154#6155#0" expanded="true" />
+            <element signature="e#6187#6188#0" expanded="true" />
+            <element signature="e#6354#6355#0" expanded="true" />
+            <element signature="e#6397#6398#0" expanded="true" />
+            <element signature="e#9655#9656#0" expanded="true" />
+            <element signature="e#9686#9687#0" expanded="true" />
+            <element signature="e#10044#10045#0" expanded="true" />
+            <element signature="e#10075#10076#0" expanded="true" />
+            <element signature="e#10279#10280#0" expanded="true" />
+            <element signature="e#10317#10318#0" expanded="true" />
+            <element signature="e#10865#10866#0" expanded="true" />
+            <element signature="e#10907#10908#0" expanded="true" />
+            <element signature="e#16456#16457#0" expanded="true" />
+            <element signature="e#16511#16512#0" expanded="true" />
+            <element signature="e#16549#16550#0" expanded="true" />
+            <element signature="e#16605#16606#0" expanded="true" />
+            <element signature="e#24089#24090#0" expanded="true" />
+            <element signature="e#24123#24124#0" expanded="true" />
+            <element signature="e#25250#25251#0" expanded="true" />
+            <element signature="e#25292#25293#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3189,82 +3225,45 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TouchImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="31" column="3" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/DisplayImageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/TechNewsFracment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="44" selection-start-line="44" selection-start-column="2" selection-end-line="80" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/OnSwipeTouchListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#890#891#0" expanded="true" />
-            <element signature="e#925#926#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/CategoryAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="70" selection-start-line="8" selection-start-column="70" selection-end-line="8" selection-end-column="70" />
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/art_list_news.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="51" column="18" lean-forward="true" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+        <state relative-caret-position="238">
+          <caret line="45" column="42" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/org/json/JSONObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="611" selection-start-line="611" selection-end-line="611" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/QueryUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tech/ducletran/customizednewsfeedapp/ArtNewsFracment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="948">
-          <caret line="106" column="9" lean-forward="true" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
+        <state relative-caret-position="255">
+          <caret line="98" column="36" selection-start-line="98" selection-start-column="36" selection-end-line="98" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3612#3986#0" expanded="true" />
-            <element signature="e#3985#3986#0" expanded="true" />
-            <element signature="e#4686#4687#0" expanded="true" />
-            <element signature="e#4721#4722#0" expanded="true" />
+            <element signature="e#4530#4531#0" expanded="true" />
+            <element signature="e#4562#4563#0" expanded="true" />
           </folding>
         </state>
       </provider>

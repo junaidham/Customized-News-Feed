@@ -1,4 +1,15 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp;/*
+ * TouchImageView.java
+ * By: Michael Ortiz
+ * Updated By: Patrick Lackemacher
+ * Updated By: Babay88
+ * Updated By: @ipsilondev
+ * Updated By: hank-cp
+ * Updated By: singpolyma
+ * -------------------
+ * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
+ */
+
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,7 +26,6 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -26,10 +36,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.OverScroller;
 import android.widget.Scroller;
-
-/**
- * Created by MyInnos on 28-11-2016.
- */
 
 public class TouchImageView extends ImageView {
 
@@ -130,7 +136,7 @@ public class TouchImageView extends ImageView {
     }
 
     @Override
-    public void setOnTouchListener(OnTouchListener l) {
+    public void setOnTouchListener(View.OnTouchListener l) {
         userTouchListener = l;
     }
 
@@ -394,7 +400,6 @@ public class TouchImageView extends ImageView {
     /**
      * Set zoom parameters equal to another TouchImageView. Including scale, position,
      * and ScaleType.
-     * @param
      */
     public void setZoom(TouchImageView img) {
         PointF center = img.getScrollPosition();
@@ -1170,7 +1175,7 @@ public class TouchImageView extends ImageView {
         }
     }
 
-    @TargetApi(VERSION_CODES.GINGERBREAD)
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private class CompatScroller {
         Scroller scroller;
         OverScroller overScroller;
@@ -1237,7 +1242,7 @@ public class TouchImageView extends ImageView {
         }
     }
 
-    @TargetApi(VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void compatPostOnAnimation(Runnable runnable) {
         if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
             postOnAnimation(runnable);
