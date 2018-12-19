@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,6 +73,13 @@ public final class QueryUtils {
                 String content = newDataJSONData.getString("content");
                 String source = newDataJSONData.getJSONObject("source").getString("name");
 
+                // Reformat timePublished
+                SimpleDateFormat normalFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                SimpleDateFormat desiredFormat = new SimpleDateFormat("hh:mm aaa - EEE, MMM d, yyyy");
+                Date date = normalFormat.parse(timePublished);
+                timePublished = desiredFormat.format(date);
+
+
                 // Creating new article and add to newsList
                 New newArticle = new New(imageURL,title,articleURL,timePublished,description,
                         author,content,source);
@@ -82,6 +90,7 @@ public final class QueryUtils {
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        } catch (ParseException e) {
         }
 
         // Return the list of earthquakes
