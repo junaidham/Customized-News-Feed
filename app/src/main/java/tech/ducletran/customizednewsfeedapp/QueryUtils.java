@@ -21,6 +21,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public final class QueryUtils {
@@ -41,6 +43,13 @@ public final class QueryUtils {
                 newsList.addAll(newsExtracted);
             }
         }
+
+        Collections.sort(newsList, new Comparator<New>() {
+            @Override
+            public int compare(New o1, New o2) {
+                return o2.getDate().compareTo(o1.getDate());
+            }
+        });
 
         return newsList;
     }
@@ -82,7 +91,7 @@ public final class QueryUtils {
 
                 // Creating new article and add to newsList
                 New newArticle = new New(imageURL,title,articleURL,timePublished,description,
-                        author,content,source);
+                        author,content,source, date);
                 newsList.add(newArticle);
             }
         } catch (JSONException e) {
@@ -92,6 +101,7 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         } catch (ParseException e) {
         }
+
 
         // Return the list of earthquakes
         return newsList;

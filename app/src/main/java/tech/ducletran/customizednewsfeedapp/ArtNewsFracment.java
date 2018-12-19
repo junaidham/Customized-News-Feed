@@ -50,28 +50,28 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.art_list_news,container,false);
 
-        // Setting internet connection
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        // Setting view
-        loadingLayout =  rootView.findViewById(R.id.loading_layout);
-        dailyArtworkTitleTextView =  rootView.findViewById(R.id.daily_art_name_text_view);
-        dailyArtworkImageView =  rootView.findViewById(R.id.daily_art_thumbnail_image_view);
-        dailyArtworkAuthorTextView = rootView.findViewById(R.id.daily_art_artist_text_view);
-        dailyArtworkTimeTextView = rootView.findViewById(R.id.daily_art_date_text_view);
-
-        // Setting the LoaderManager
-        loaderManager = getActivity().getLoaderManager();
-        if (isConnected) {
-            loaderManager.initLoader(0,null,this).forceLoad();
-
-        } else {
-            loadingLayout.setVisibility(View.GONE);
-        }
+//        // Setting internet connection
+//        ConnectivityManager cm =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        isConnected = activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
+//
+//        // Setting view
+//        loadingLayout =  rootView.findViewById(R.id.loading_layout);
+//        dailyArtworkTitleTextView =  rootView.findViewById(R.id.daily_art_name_text_view);
+//        dailyArtworkImageView =  rootView.findViewById(R.id.daily_art_thumbnail_image_view);
+//        dailyArtworkAuthorTextView = rootView.findViewById(R.id.daily_art_artist_text_view);
+//        dailyArtworkTimeTextView = rootView.findViewById(R.id.daily_art_date_text_view);
+//
+//        // Setting the LoaderManager
+//        loaderManager = getActivity().getLoaderManager();
+//        if (isConnected) {
+//            loaderManager.initLoader(0,null,this).forceLoad();
+//
+//        } else {
+//            loadingLayout.setVisibility(View.GONE);
+//        }
 
         return rootView;
     }

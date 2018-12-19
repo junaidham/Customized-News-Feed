@@ -42,43 +42,43 @@ public class TechNewsFracment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_news,container,false);
 
-        // Setting internet connection
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        // Setting view
-        final ListView listView = (ListView) rootView.findViewById(R.id.list);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
-        listView.setEmptyView(emptyView);
-        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
-
-        // Setting the adapter
-        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                New news = adapter.getItem(position);
-                Uri webpage = Uri.parse(news.getArticleURL());
-                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
-
-        // Setting the LoaderManager
-        LoaderManager loaderManager = getActivity().getLoaderManager();
-        if (isConnected) {
-            loaderManager.initLoader(1,null,this).forceLoad();
-        } else {
-            loadingLayout.setVisibility(View.GONE);
-            emptyView.setText("No Internet Connection");
-        }
+//        // Setting internet connection
+//        ConnectivityManager cm =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        isConnected = activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
+//
+//        // Setting view
+//        final ListView listView = (ListView) rootView.findViewById(R.id.list);
+//        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
+//        listView.setEmptyView(emptyView);
+//        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
+//
+//        // Setting the adapter
+//        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
+//        listView.setAdapter(adapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                New news = adapter.getItem(position);
+//                Uri webpage = Uri.parse(news.getArticleURL());
+//                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
+//                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//
+//        // Setting the LoaderManager
+//        LoaderManager loaderManager = getActivity().getLoaderManager();
+//        if (isConnected) {
+//            loaderManager.initLoader(1,null,this).forceLoad();
+//        } else {
+//            loadingLayout.setVisibility(View.GONE);
+//            emptyView.setText("No Internet Connection");
+//        }
 
         return rootView;
     }
