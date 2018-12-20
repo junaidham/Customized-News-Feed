@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,9 +16,10 @@ import java.util.ArrayList;
 
 import tech.ducletran.customizednewsfeedapp.R;
 
-public class TravelAdapter extends ArrayAdapter<New> {
+public class TravelAdapter extends ArrayAdapter<City> {
 
-    public TravelAdapter(Activity context, ArrayList<New> newsList) {
+
+    public TravelAdapter(Activity context, ArrayList<City> newsList) {
         super(context,0,newsList);
     }
 
@@ -31,15 +31,20 @@ public class TravelAdapter extends ArrayAdapter<New> {
         if (listViewItem == null) {
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_city_items,parent,false);
         }
-        New newCity = getItem(position);
+        City newCity = getItem(position);
 
         ImageView cityImageView= listViewItem.findViewById(R.id.city_image_view);
         TextView cityTitleTextView = listViewItem.findViewById(R.id.city_name_text_view);
-//        TextView cityDescriptionView = listViewItem.findViewById(R.id.city_description_text_view);
+        TextView cityDescriptionView = listViewItem.findViewById(R.id.city_description_text_view);
 
         Picasso.get().load(newCity.getImageURL()).resize(360,250).into(cityImageView);
-        cityTitleTextView.setText(newCity.getTitle() + " - " + newCity.getWriter());
-//        cityDescriptionView.setText(newCity.getDescription());
+        cityTitleTextView.setText(newCity.getName() + " - " + newCity.getCountry());
+        cityDescriptionView.setText(newCity.getDescription());
+        if (newCity.getExpanding()) {
+            cityDescriptionView.setVisibility(View.VISIBLE);
+        } else {
+            cityDescriptionView.setVisibility(View.GONE);
+        }
 
 
         return listViewItem;

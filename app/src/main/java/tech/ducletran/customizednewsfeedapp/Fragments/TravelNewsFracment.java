@@ -2,17 +2,14 @@ package tech.ducletran.customizednewsfeedapp.Fragments;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +20,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tech.ducletran.customizednewsfeedapp.OtherResource.New;
+import tech.ducletran.customizednewsfeedapp.OtherResource.City;
 import tech.ducletran.customizednewsfeedapp.OtherResource.TravelAdapter;
 import tech.ducletran.customizednewsfeedapp.QueryUtils.TravelQueryUtils;
 import tech.ducletran.customizednewsfeedapp.R;
 
-public class TravelNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
+public class TravelNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<City>> {
     // Travel Link API
     private final String travelLink = "https://developers.musement.com/api/v3/cities/";
 
@@ -46,55 +43,57 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_news,container,false);
 
-        // Setting internet connection
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+//        // Setting internet connection
+//        ConnectivityManager cm =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        isConnected = activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
 //
-        // Setting view
-        final ListView listView = (ListView) rootView.findViewById(R.id.list);
-        emptyView = (TextView) rootView.findViewById(R.id.empty_text_view);
-        listView.setEmptyView(emptyView);
-        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
-
-        // Setting adapter
-        adapter = new TravelAdapter(getActivity(),new ArrayList<New>());
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                New news = adapter.getItem(position);
-                Uri webpage = Uri.parse(news.getArticleURL());
-                Intent intent = new Intent(Intent.ACTION_VIEW,webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
-
-        // Setting the LoaderManager
-        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
-        if (isConnected) {
-            loaderManager.initLoader(3,null,this).forceLoad();
-        } else {
-            loadingLayout.setVisibility(View.GONE);
-            emptyView.setText("No Internet Connection");
-        }
+//        // Setting view
+//        final ListView listView = rootView.findViewById(R.id.list);
+//        emptyView = rootView.findViewById(R.id.empty_text_view);
+//        listView.setEmptyView(emptyView);
+//        loadingLayout = rootView.findViewById(R.id.loading_layout);
+//
+//        // Setting adapter
+//        adapter = new TravelAdapter(getActivity(),new ArrayList<City>());
+//        listView.setAdapter(adapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                City city = adapter.getItem(position);
+//                city.changeExpanding();
+//                TextView descriptionView = view.findViewById(R.id.city_description_text_view);
+//                if (city.getExpanding()) {
+//                    descriptionView.setVisibility(View.VISIBLE);
+//                } else {
+//                    descriptionView.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+//
+//        // Setting the LoaderManager
+//        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
+//        if (isConnected) {
+//            loaderManager.initLoader(3,null,this).forceLoad();
+//        } else {
+//            loadingLayout.setVisibility(View.GONE);
+//            emptyView.setText("No Internet Connection");
+//        }
 
         return rootView;
 
     }
 
     @Override
-    public Loader<ArrayList<New>> onCreateLoader(int id, Bundle args) {
+    public Loader<ArrayList<City>> onCreateLoader(int id, Bundle args) {
         return new TravelNewsAsyncTaskLoader(getActivity(),getTravelAPILink(travelLink,12));
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<New>> loader, ArrayList<New> data) {
+    public void onLoadFinished(Loader<ArrayList<City>> loader, ArrayList<City> data) {
         emptyView.setText("There is no city loaded");
 
         if(adapter != null) {
@@ -105,12 +104,12 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<New>> loader) {
+    public void onLoaderReset(Loader<ArrayList<City>> loader) {
 
     }
 
 
-    private static class TravelNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
+    private static class TravelNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<City>> {
         private String[] urls;
 
         public TravelNewsAsyncTaskLoader(Context context, String[] urls) {
@@ -120,8 +119,8 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
 
         @Nullable
         @Override
-        public ArrayList<New> loadInBackground() {
-            return TravelQueryUtils.fetchTravelNewsData(urls);
+        public ArrayList<City> loadInBackground() {
+            return TravelQueryUtils.fetchTravelCityData(urls);
 
         }
 
@@ -151,9 +150,7 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
                 }
             }
         }
-        for (int i = 0;i<numberOfCity;i++) {
-            Log.d("HELLO","HELLO WORLD: "+cityListURL[i]);
-        }
+
         return cityListURL;
     }
 }

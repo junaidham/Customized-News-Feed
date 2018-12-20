@@ -27,15 +27,12 @@
         android:textAllCaps="true"
         />
 
-
-
-
     <TextView
         android:id="@+id/city_description_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The one-day pop-up kiosk is meant to show that Facebook takes users’ privacy concerns seriously. It also was an opportunity to gather more data."
         android:textSize="13.5sp"
+        android:text="Click for more information"
         />
 
 </LinearLayout>

@@ -9,18 +9,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import tech.ducletran.customizednewsfeedapp.OtherResource.New;
+import tech.ducletran.customizednewsfeedapp.OtherResource.City;
 
 public class TravelQueryUtils {
 
-    public static ArrayList<New> fetchTravelNewsData(String[] urls) {
+    public static ArrayList<City> fetchTravelCityData(String[] urls) {
 
-        ArrayList<New> randomCityList = new ArrayList<New>() {};
+        ArrayList<City> randomCityList = new ArrayList<City>() {};
 
         String jsonResponse = null;
         for (String url:urls) {
             jsonResponse = QueryUtils.getNewsData(url);
-            New placeExtracted = extractTravelNews(jsonResponse);
+            City placeExtracted = extractTravelCity(jsonResponse);
             if (placeExtracted != null) {
                 randomCityList.add(placeExtracted);
             }
@@ -29,12 +29,12 @@ public class TravelQueryUtils {
         return randomCityList;
     }
 
-    private static New extractTravelNews(String jsonResponse) {
+    private static City extractTravelCity(String jsonResponse) {
         if (TextUtils.isEmpty(jsonResponse)) {
             return null;
         }
         // Create an empty ArrayList that we can start adding news to
-        New cityNew = null;
+        City cityNew = null;
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -51,7 +51,7 @@ public class TravelQueryUtils {
             String articleURL = jsonObject.getString("url");
             String country = jsonObject.getJSONObject("country").getString("name");
 
-            cityNew = new New(imageURL,name,articleURL,null,description,country,null,null);
+            cityNew = new City(imageURL,name,articleURL,description,country);
         } catch (JSONException e) {
             Log.e("TravelQueryUtils","extractTravelNews: Can't get JSONObject city");
         }
