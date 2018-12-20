@@ -1,4 +1,4 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
+
+import tech.ducletran.customizednewsfeedapp.Fragments.ArtNewsFracment;
+import tech.ducletran.customizednewsfeedapp.R;
+import tech.ducletran.customizednewsfeedapp.OtherResource.TouchImageView;
 
 public class DisplayImageActivity extends AppCompatActivity {
     private TouchImageView fullImageView;

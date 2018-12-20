@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <tech.ducletran.customizednewsfeedapp.TouchImageView
+    <tech.ducletran.customizednewsfeedapp.OtherResource.TouchImageView
         android:id="@+id/image_display_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

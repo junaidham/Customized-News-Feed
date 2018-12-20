@@ -1,4 +1,4 @@
-package tech.ducletran.customizednewsfeedapp;/*
+package tech.ducletran.customizednewsfeedapp.OtherResource;/*
  * TouchImageView.java
  * By: Michael Ortiz
  * Updated By: Patrick Lackemacher

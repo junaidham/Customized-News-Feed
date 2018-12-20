@@ -1,5 +1,6 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.Fragments;
 
+import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.app.LoaderManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +22,25 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TravelNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
-    // Travel Link API
-    String travelAPILink[] = new String[]
-            {"https://newsapi.org/v2/everything?q=bitcoin&from=2018-11-14&sortBy=publishedAt&apiKey=a99368fd8b7a4d028fc9aa9664cec212"};
-//    String travelAPILink[] = new String[] {};
+import tech.ducletran.customizednewsfeedapp.OtherResource.New;
+import tech.ducletran.customizednewsfeedapp.OtherResource.NewsAdapter;
+import tech.ducletran.customizednewsfeedapp.QueryUtils.TechQueryUtils;
+import tech.ducletran.customizednewsfeedapp.R;
 
-    // Class attribute
+public class TechNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
+    private String techAPIList[] = new String[] {
+            "https://newsapi.org/v2/top-headlines?sources=wired&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=7",
+            "https://newsapi.org/v2/top-headlines?sources=hacker-news&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=7",
+            "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=7",
+            "https://newsapi.org/v2/top-headlines?sources=techradar&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=7",
+            "https://newsapi.org/v2/top-headlines?sources=the-verge&apiKey=a99368fd8b7a4d028fc9aa9664cec212&pageSize=7"
+    };
     private boolean isConnected;
     private TextView emptyView;
     private RelativeLayout loadingLayout;
     private NewsAdapter adapter;
 
-    public TravelNewsFracment() {}
+    public TechNewsFracment() {}
 
     @Nullable
     @Override
@@ -54,7 +60,7 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
 //        listView.setEmptyView(emptyView);
 //        loadingLayout = (RelativeLayout) rootView.findViewById(R.id.loading_layout);
 //
-//        // Setting adapter
+//        // Setting the adapter
 //        adapter = new NewsAdapter(getActivity(),new ArrayList<New>());
 //        listView.setAdapter(adapter);
 //
@@ -71,44 +77,42 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
 //        });
 //
 //        // Setting the LoaderManager
-//        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
+//        LoaderManager loaderManager = getActivity().getLoaderManager();
 //        if (isConnected) {
-//            loaderManager.initLoader(3,null,this).forceLoad();
+//            loaderManager.initLoader(1,null,this).forceLoad();
 //        } else {
 //            loadingLayout.setVisibility(View.GONE);
 //            emptyView.setText("No Internet Connection");
 //        }
 
         return rootView;
-
-    }
-
-    @NonNull
-    @Override
-    public Loader<ArrayList<New>> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new TravelNewsAsyncTaskLoader(getActivity(),travelAPILink);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<New>> loader, ArrayList<New> news) {
+    public Loader<ArrayList<New>> onCreateLoader(int id, Bundle args) {
+        return new TechNewsAsyncTaskLoader(getActivity(),techAPIList);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<New>> loader, ArrayList<New> data) {
         emptyView.setText("There are no news.");
 
-        if (adapter != null) {
+        if(adapter != null) {
             adapter.clear();
         }
-        adapter.addAll(news);
+        adapter.addAll(data);
         loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<New>> loader) {
+    public void onLoaderReset(Loader<ArrayList<New>> loader) {
         adapter.clear();
     }
 
-    private static class TravelNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
+    private static class TechNewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<New>> {
         private String[] urls;
 
-        public TravelNewsAsyncTaskLoader(Context context, String[] urls) {
+        public TechNewsAsyncTaskLoader(Context context, String[] urls) {
             super(context);
             this.urls = urls;
         }
@@ -119,7 +123,7 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
             if (urls == null || urls.length <1) {
                 return null;
             }
-            return QueryUtils.fetchNewsData(urls);
+            return TechQueryUtils.fetchTechNewsData(urls);
 
         }
 

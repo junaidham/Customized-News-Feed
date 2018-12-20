@@ -1,13 +1,9 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.Fragments;
 
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +11,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import tech.ducletran.customizednewsfeedapp.OtherResource.New;
+import tech.ducletran.customizednewsfeedapp.OtherResource.NewsAdapter;
+import tech.ducletran.customizednewsfeedapp.QueryUtils.QueryUtils;
+import tech.ducletran.customizednewsfeedapp.R;
 
 public class OtherNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<New>> {
 //    String otherAPIList[] = new String[]

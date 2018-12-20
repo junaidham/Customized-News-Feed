@@ -1,4 +1,4 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.OtherResource;
 
 import java.util.Date;
 

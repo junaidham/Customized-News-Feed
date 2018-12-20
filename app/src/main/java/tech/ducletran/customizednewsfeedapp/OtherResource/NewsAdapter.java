@@ -1,4 +1,4 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.OtherResource;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+
+import tech.ducletran.customizednewsfeedapp.R;
 
 
 public class NewsAdapter extends ArrayAdapter<New> {

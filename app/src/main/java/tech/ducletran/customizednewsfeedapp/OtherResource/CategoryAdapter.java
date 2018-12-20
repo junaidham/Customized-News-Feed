@@ -1,9 +1,14 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.OtherResource;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import tech.ducletran.customizednewsfeedapp.Fragments.ArtNewsFracment;
+import tech.ducletran.customizednewsfeedapp.Fragments.OtherNewsFracment;
+import tech.ducletran.customizednewsfeedapp.Fragments.TechNewsFracment;
+import tech.ducletran.customizednewsfeedapp.Fragments.TravelNewsFracment;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] {"Technology","Daily Art","Travel","Others"};

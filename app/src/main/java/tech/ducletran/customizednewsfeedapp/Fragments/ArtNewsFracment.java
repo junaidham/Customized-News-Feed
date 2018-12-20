@@ -1,4 +1,4 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.Fragments;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -21,6 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import tech.ducletran.customizednewsfeedapp.Activity.DisplayImageActivity;
+import tech.ducletran.customizednewsfeedapp.OtherResource.New;
+import tech.ducletran.customizednewsfeedapp.QueryUtils.ArtQueryUtils;
+import tech.ducletran.customizednewsfeedapp.QueryUtils.QueryUtils;
+import tech.ducletran.customizednewsfeedapp.R;
 
 
 public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCallbacks<New>{
@@ -84,7 +90,7 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(Loader<New> loader, final New dailyArtwork) {
-//        Log.d("dd","BIG ERROR: "+ dailyArtwork );
+
         if (!isArtLoaded && dailyArtwork != null) {
             artTitle = dailyArtwork.getTitle();
             if(TextUtils.isEmpty(dailyArtwork.getTimePublished())) {
@@ -138,7 +144,7 @@ public class ArtNewsFracment extends Fragment implements LoaderManager.LoaderCal
             if (url == null ) {
                 return null;
             }
-            return QueryUtils.fetchArtNewsData(url);
+            return ArtQueryUtils.fetchArtNewsData(url);
 
         }
 

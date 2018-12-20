@@ -1,8 +1,11 @@
-package tech.ducletran.customizednewsfeedapp;
+package tech.ducletran.customizednewsfeedapp.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import tech.ducletran.customizednewsfeedapp.Fragments.TechNewsFracment;
+import tech.ducletran.customizednewsfeedapp.R;
 
 public class TechNewsActivity extends AppCompatActivity {
     @Override
