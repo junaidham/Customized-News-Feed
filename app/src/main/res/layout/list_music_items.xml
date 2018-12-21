@@ -6,7 +6,6 @@
     android:orientation="horizontal"
     android:padding="8dp"
     android:elevation="4dp"
-    android:background="@drawable/my_shadow"
     >
     <ImageView
         android:id="@+id/song_image_view"

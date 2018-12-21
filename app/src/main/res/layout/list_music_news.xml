@@ -21,7 +21,9 @@
             android:paddingRight="16dp"
             android:paddingTop="16dp"
             android:paddingBottom="24dp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:elevation="4dp"
+            android:background="@drawable/my_shadow"/>
 
         <ListView
             android:id="@+id/top_song_list_view"
@@ -37,7 +39,8 @@
             android:text="Top music is not loaded"
             android:textStyle="bold"
             android:layout_below="@+id/top_song_chart_title_text_view"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 
@@ -58,13 +61,16 @@
             android:text="Chart is not loaded"
             android:textStyle="bold"
             android:layout_below="@+id/edit_tag_field"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
         <LinearLayout
             android:id="@+id/edit_tag_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:elevation="4dp"
+            android:background="@drawable/my_shadow">
             <EditText
                 android:id="@+id/tag_edit_text"
                 android:layout_weight="1"
