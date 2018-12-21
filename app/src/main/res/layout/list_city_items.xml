@@ -27,12 +27,26 @@
         android:textAllCaps="true"
         />
 
-    <TextView
-        android:id="@+id/city_description_text_view"
+    <LinearLayout
+        android:id="@+id/city_detail_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="13.5sp"
-        android:text="Click for more information"
-        />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/city_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13.5sp"
+            android:text="Click for more information"
+            />
+        <Button
+            android:id="@+id/city_button"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See more"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
 
 </LinearLayout>

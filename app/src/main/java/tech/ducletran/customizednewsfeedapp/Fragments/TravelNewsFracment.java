@@ -2,18 +2,23 @@ package tech.ducletran.customizednewsfeedapp.Fragments;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.LoaderManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,45 +48,52 @@ public class TravelNewsFracment extends Fragment implements LoaderManager.Loader
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.list_news,container,false);
 
-//        // Setting internet connection
-//        ConnectivityManager cm =
-//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//        isConnected = activeNetwork != null &&
-//                activeNetwork.isConnectedOrConnecting();
-//
-//        // Setting view
-//        final ListView listView = rootView.findViewById(R.id.list);
-//        emptyView = rootView.findViewById(R.id.empty_text_view);
-//        listView.setEmptyView(emptyView);
-//        loadingLayout = rootView.findViewById(R.id.loading_layout);
-//
-//        // Setting adapter
-//        adapter = new TravelAdapter(getActivity(),new ArrayList<City>());
-//        listView.setAdapter(adapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                City city = adapter.getItem(position);
-//                city.changeExpanding();
-//                TextView descriptionView = view.findViewById(R.id.city_description_text_view);
-//                if (city.getExpanding()) {
-//                    descriptionView.setVisibility(View.VISIBLE);
-//                } else {
-//                    descriptionView.setVisibility(View.GONE);
-//                }
-//            }
-//        });
-//
-//        // Setting the LoaderManager
-//        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
-//        if (isConnected) {
-//            loaderManager.initLoader(3,null,this).forceLoad();
-//        } else {
-//            loadingLayout.setVisibility(View.GONE);
-//            emptyView.setText("No Internet Connection");
-//        }
+        // Setting internet connection
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        // Setting view
+        final ListView listView = rootView.findViewById(R.id.list);
+        emptyView = rootView.findViewById(R.id.empty_text_view);
+        listView.setEmptyView(emptyView);
+        loadingLayout = rootView.findViewById(R.id.loading_layout);
+
+        // Setting adapter
+        adapter = new TravelAdapter(getActivity(),new ArrayList<City>());
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                final City city = adapter.getItem(position);
+                city.changeExpanding();
+                final LinearLayout detailedView = view.findViewById(R.id.city_detail_view);
+
+                detailedView.setVisibility(View.VISIBLE);
+
+
+                Button cityButton = view.findViewById(R.id.city_button);
+                cityButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(city.getArticleURL()));
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        // Setting the LoaderManager
+        android.app.LoaderManager loaderManager = getActivity().getLoaderManager();
+        if (isConnected) {
+            loaderManager.initLoader(3,null,this).forceLoad();
+        } else {
+            loadingLayout.setVisibility(View.GONE);
+            emptyView.setText("No Internet Connection");
+        }
 
         return rootView;
 
