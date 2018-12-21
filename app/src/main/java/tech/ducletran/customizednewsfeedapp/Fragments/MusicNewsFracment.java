@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,6 +62,10 @@ public class MusicNewsFracment extends Fragment implements LoaderManager.LoaderC
         topSongEmptyView = rootView.findViewById(R.id.empty_top_song_text_view);
         final ListView topSongTagListView = rootView.findViewById(R.id.top_song_tag_list_view);
         topSongTagEmptyView = rootView.findViewById(R.id.empty_top_song_tag_text_view);
+        final EditText getTagView = rootView.findViewById(R.id.tag_edit_text);
+        Button getTagChartButton = rootView.findViewById(R.id.get_tag_chart_button);
+
+        // Set empty view
         topSongListView.setEmptyView(topSongEmptyView);
         topSongTagListView.setEmptyView(topSongTagEmptyView);
 
@@ -71,13 +77,25 @@ public class MusicNewsFracment extends Fragment implements LoaderManager.LoaderC
         topSongTagListView.setAdapter(topSongTagAdapter);
 
         // Setting the LoaderManager
-        LoaderManager loaderManager = getActivity().getLoaderManager();
+        final LoaderManager loaderManager = getActivity().getLoaderManager();
         if (isConnected) {
             loaderManager.initLoader(2,null,this).forceLoad();
         } else {
             topSongEmptyView.setText("No Internet Connection");
             topSongTagEmptyView.setText("No Internet Connection");
         }
+
+        // Set click on tag chart
+        getTagChartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tag = getTagView.getText().toString();
+                urls = generateURL(tag);
+
+                getTagView.setText("");
+                loaderManager.restartLoader(2,null,MusicNewsFracment.this).forceLoad();
+            }
+        });
 
         return rootView;
     }
@@ -99,6 +117,9 @@ public class MusicNewsFracment extends Fragment implements LoaderManager.LoaderC
             topSongTagAdapter.clear();
         }
         topSongAdapter.addAll(data[0]);
+        if (data[1] != null) {
+            topSongTagAdapter.addAll(data[1]);
+        }
 
     }
 
